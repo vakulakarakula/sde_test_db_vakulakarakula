@@ -39,3 +39,4 @@ from bookings.bookings b
 left join bookings.tickets t on b.book_ref = t.book_ref
 left join bookings.ticket_flights tf on t.ticket_no = tf.ticket_no) as tsd
 group by b_book_ref) as dst;
+--7.
