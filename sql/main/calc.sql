@@ -190,7 +190,11 @@ from bookings.airports
 group by city) as prom_table
 where kolvo_airports > 1
 order by city asc;
+
+
 --11.	Вывести город(а), у которого самое меньшее количество городов прямого сообщения
+insert into bookings.results
+
 select 11 as test_number, departure_city from 
 	(select
 	departure_city,
