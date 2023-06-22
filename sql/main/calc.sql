@@ -103,7 +103,7 @@ where chislo = (select  max(chislo) as otvet from (select book_ref, count (*) as
 insert into bookings.results
 
 
-select 4 as test_number, prom_table1.book_ref||'|'||array_agg(t.passenger_id||'|'||t.passenger_name||'|'||t.contact_data order by prom_table1.book_ref, t.passenger_id,t.passenger_name,t.contact_data)
+select 4 as test_number, prom_table1.book_ref||array_agg(t.passenger_id||'|'||t.passenger_name||'|'||t.contact_data order by prom_table1.book_ref, t.passenger_id,t.passenger_name,t.contact_data) as book_ref_and_pass
     from
       (
 --Считаем количество пассажиров на бронь и фильтруем только тебронирования, где 3 пассажира
@@ -119,6 +119,8 @@ select 4 as test_number, prom_table1.book_ref||'|'||array_agg(t.passenger_id||'|
       left join tickets t on prom_table1.book_ref = t.book_ref
   group by prom_table1.book_ref
  order by 1;
+
+
 
 /*
 select
