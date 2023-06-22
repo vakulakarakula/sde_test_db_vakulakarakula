@@ -102,6 +102,25 @@ where chislo = (select  max(chislo) as otvet from (select book_ref, count (*) as
 /*4.	Вывести номера брони и контактную информацию по пассажирам в брони (passenger_id, passenger_name, contact_data) с количеством людей в брони = 3*/
 insert into bookings.results
 
+
+select 4 as test_number, concat (prom_table1.book_ref||'|'||array_agg(t.passenger_id||'|'||t.passenger_name||'|'||t.contact_data order by prom_table1.book_ref, t.passenger_id,t.passenger_name,t.contact_data))
+    from
+      (
+--Считаем количество пассажиров на бронь и фильтруем только тебронирования, где 3 пассажира
+            select
+              book_ref,
+              count (*) as kolvo_passenger
+            from
+              bookings.tickets
+            group by tickets.book_ref
+            having count (*) = 3
+      ) as prom_table1
+--Джойним контакты пассажиров
+      left join tickets t on prom_table1.book_ref = t.book_ref
+  group by prom_table1.book_ref
+ order by 1;
+
+/*
 select
       4 as test_number,
       prom_table1.book_ref||'|'||t.passenger_id||'|'||t.passenger_name||'|'||t.contact_data as contact_data
@@ -119,9 +138,8 @@ select
 --Джойним контакты пассажиров
       left join tickets t on prom_table1.book_ref = t.book_ref
     order by contact_data asc;
+*/
 
-   
- 
 
 
 /*5.	Вывести максимальное количество перелётов на бронь*/
