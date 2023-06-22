@@ -16,7 +16,6 @@ select 2 as test_number, count (book_ref) as otvet from
 (select book_ref, count (*) as chislo from bookings.tickets group by book_ref) as dst
 where chislo > (select avg(chislo) as otvet from (select book_ref, count (*) as chislo from bookings.tickets group by book_ref) as fdr)) as otvet;
 
---3.	Вывести количество бронирований, у которых состав пассажиров повторялся два и более раза, среди бронирований с максимальным количеством людей (п.1)?
 
 --4.	Вывести номера брони и контактную информацию по пассажирам в брони (passenger_id, passenger_name, contact_data) с количеством людей в брони = 3
 insert into bookings.results
